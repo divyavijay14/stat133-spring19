@@ -1,0 +1,1 @@
+# This homework assignment, workout1, is meant to apply all the concepts we've learned so far in class into one assignment that has a clear narrative. It covers git basics, data manipulation, plotting, and R Markdown
