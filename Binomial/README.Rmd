@@ -1,0 +1,71 @@
+---
+title: "README.Rmd"
+output:
+  github_document:
+    html_preview: false
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+## Overview
+
+"Binomial" is a package that implements functions for calculating probabilities of a Binomial random variable, and related calculations such as the probability distribution, the expected value, variance, etc.
+Some examples of these functions are:
+
+  * 'bin_distribution()' creates a dataframe (of class 'binomial distribution')
+  * 'bin_cumulative()' creates a dataframe (of class binomial cumulative distribution)
+  * 'plot()' method for a 'bin_distribution' and 'bin_cumulative' object to plot probabilities of successes.
+  * 'bin_variable()' creates a list object (of class binomial random variable)
+  * 'summary()' method for a binomial variable object
+  
+## Motivation
+
+This package was created as a part of Workout3 for Stat 133.
+
+## Installation
+
+Install the development version from GitHub via the package `"devtools"`:
+
+```{r}
+# development version from GitHub:
+#install.packages("devtools") 
+# install "cointoss" (without vignettes)
+devtools::install_github("divyavijay14/stat133-spring19/Binomial")
+# install "cointoss" (with vignettes)
+devtools::install_github("divyavijay14/stat133-spring19/Binomial", build_vignettes = TRUE)
+```
+
+## Usage
+
+```{r}
+library(Binomial)
+
+bin_probability(success = 2, trials = 5, prob = 0.5)
+
+#creates a dataframe of probabilities of successes
+bin_distribution(trials = 5, prob = 0.5)
+
+#plots that binomial distribution
+dis1 <- bin_distribution(trials = 5, prob = 0.5)
+plot(dis1)
+
+#creates a dataframe of cumulative probabilities of successes
+bin_cumulative(trials = 5, prob = 0.5)
+
+#plots that cumulative binomial distribution
+dis2 <- bin_cumulative(trials = 5, prob = 0.5)
+plot(dis2)
+
+#gives us summary statistics on this binomial random variable
+bin1 <- bin_variable(trials = 5, p = 0.5)
+binsum1 <- summary(bin1)
+binsum1
+
+```
+

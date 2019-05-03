@@ -1,0 +1,120 @@
+---
+title: "Getting Started with R package Binomial"
+author: "Divya Vijay"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to R package Binomial}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = T, comment = '#>')
+library(Binomial)
+```
+
+## Binomial Package
+The package "binomial" allows us to implement functions for calculating probabilities of a Binomial random variable and related calculations such as the probability distribution, expected value, variance, etc. 
+
+## Operations
+
+**bin_choose(n,k)** : This function gives us the number of combinations in which k successes can occur in n trials.
+
+**bin_distribution(trials, prob)** : This function gives us a data frame of class "binomal distribution" that includes the probability distribution for the given number of trials and given value of probability. The dataframe gives the level of probability for different values of success.
+
+**bin_cumulative(trials, prob)** : This function gives us a dataframe of class "binomial cumulative distribution" that includes both the probability distribution and cumulative probabilities calculated from the given number of trials and given value of probability inputted. 
+
+**bin_variable(trials, prob)** : This function gives us a named list of class "binomial random variable" that includes the number of trials and the probability of success.
+
+## Checking the Functions
+Since all of the above functions use some combination of the inputs trials, successes, and probability, we created checker functions that will check if each of these values are valid. If they are not valid, the function will display a stop message explaining the error. These are private functions that are called within the main functions listed above.
+
+
+**check_prob(prob)** : This function checks whether the input probability is a valid value (i.e. whether it is greater than or equal to 0 or less than or equal to 1)
+
+**check_trials(trials)** : This function checks whether trials is a valid number of trials (i.e. whether it is a non-negative integer).
+
+**check_success(success)** : This function checks whether the number of successes is valid and is less than the number of trials. 
+
+## Auxiliary Functions
+
+We also have private auxiliary functions - all of which take the inputs **trials** and **prob** that serve to glean stats about the binomial distribution such as:
+
+**aux_mean()** : Gives the expected value or mean of a binomial distribution
+
+**aux_variance()** : Gives the variance
+
+**aux_mode()** : Gives the most likely number of success in a given number of independent trials with probability **prob** of success in each trial being the mode (the greater integer less than or equal to np + p)
+
+**aux_skewness()** : Gives the measure of the asymmetry of the probability distribution of a random variable about its mean
+
+**aux_kurtosis()** : Gives the measure of the "tailedness" of the probability distribution of a random variable
+
+## Example
+
+Let's see how to use our functions on an example of a given number of trials, successes, and probability.
+
+```{r}
+bin_choose(5, 2)
+```
+
+This gives us the number of combinations in which 2 successes can occur in 5 trials.
+
+What's the probability of getting one of these combinations? We can use bin_probability for that. (We are assuming the probability of success is 0.5).
+
+```{r}
+bin_probability(success = 2, trials = 5, prob = 0.5)
+```
+
+Why stop at just 2 successes? We can get information on the probability of getting any number of successes within a given number of trials. We can do that by creating a dataframe with bin_distribution.
+
+```{r}
+bin_distribution(trials = 5, prob = 0.5)
+```
+
+We can plot this dataframe to get a better idea of what this binomial distribution actually looks like!
+
+```{r}
+dis1 <- bin_distribution(trials = 5, prob = 0.5)
+plot(dis1)
+```
+
+We can also do this with cumulative probabilities and visualize a cumulative distribution.
+
+```{r}
+bin_cumulative(trials = 5, prob = 0.5)
+```
+
+```{r}
+dis2 <- bin_cumulative(trials = 5, prob = 0.5)
+plot(dis2)
+```
+
+What if we want to get more information about our binomial distribution? We made those mean, variance, etc. functions earlier specifically to help us calculate these summary measures.
+
+First we can make a binomial variable object, printed nicely with the help of a print function (print.binvar()) we created.
+
+```{r}
+bin1 <- bin_variable(trials = 5, p = 0.5)
+bin1
+```
+
+Then, we can get a full summary of information about the mean, variance, etc. using a summary function we created and the corresponding print function (print.summary.binvar()).
+
+```{r}
+bin1 <- bin_variable(trials = 5, p = 0.5)
+binsum1 <- summary(bin1)
+binsum1
+```
+
+Finally, we can use functions specifcally made for summary measures of our binomial distribution, made using our private auxiliary functions.
+
+```{r}
+bin_mean(5, 0.5)
+bin_variance(5, 0.5)
+bin_mode(5, 0.5)
+bin_skewness(5, 0.5)
+bin_kurtosis(5, 0.5)
+```
+
