@@ -1,4 +1,4 @@
-
+library(roxygen2)
 #' @title bin choose
 #' @description calculates number of combinations in which k successes can occur in n trials
 #' @param k number of successes

@@ -1,8 +1,6 @@
 ---
 title: "README.Rmd"
-output:
-  github_document:
-    html_preview: false
+output: github_document
 ---
 
 ```{r, echo = FALSE}

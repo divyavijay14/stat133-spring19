@@ -37,8 +37,8 @@ aux_kurtosis <- function(trials, prob){
   return(top / bottom)
 }
 
-aux_mean(10, 0.3)
-aux_variance(10, 0.3)
-aux_mode(10, 0.3)
-aux_skewness(10, 0.3)
-aux_kurtosis(10, 0.3)
+# aux_mean(10, 0.3)
+# aux_variance(10, 0.3)
+# aux_mode(10, 0.3)
+# aux_skewness(10, 0.3)
+# aux_kurtosis(10, 0.3)
